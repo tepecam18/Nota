@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Uye_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Nota</title>
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid bg-success">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-light">
+                        <a href="../Nota.aspx" class="text-light">
+                                <h1 class="font-weight-bolder">Nota</h1>
+                            </a>
+                    </div>
+                    <div class="col-md-6 align-self-end text-right">
+                        <div class="btn-group text-right">
+                            <a href="AnaSayfa.aspx" class="btn text-white pt-0 btn-outline-dark">Ana Sayfa</a>
+                            <a href="Notalarim.aspx" class="btn border-left text-white pt-0 btn-outline-dark"> Notalarım</a>
+                            <a href="UyeProfil.aspx" class="btn border-left text-white pt-0 btn-outline-dark"> Üye Bilgileri</a>
+                            <a href="PuanYükle.aspx" class="btn border-left text-white pt-0 btn-outline-dark"> Puan Yükle</a>
+                            <a href="OturumKapat.aspx" class="btn border-left text-white pt-0 btn-outline-dark"> Çıkış</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row py-3">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="container-fluid bg-success text-center">
+            <small>TPCM 2019 © Tüm Hakları Saklıdır.</small>
+        </div>
+    </form>
+</body>
+</html>

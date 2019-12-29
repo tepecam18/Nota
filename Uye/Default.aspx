@@ -1,0 +1,209 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Uye/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Uye_Default" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+            height: 27px;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="col-md-6 bg-light p-5">
+
+        <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
+                                    <HeaderTemplate>
+                <div id="nota" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+            </HeaderTemplate>
+            <ItemTemplate>
+                <div class="carousel-item <%# Container.ItemIndex==0 ? "active" : "passive" %>">
+                    <a href="../img/Notalar/<%# (Eval ("NotaID"))+"x"+(Eval ("SayfaNo")) %>.png">
+                        <img src="../img/Notalar/<%# (Eval ("NotaID"))+"x"+(Eval ("SayfaNo")) %>.png" class="d-block w-100" />
+                    </a>
+                </div>
+            </ItemTemplate>
+            <FooterTemplate>
+                </div>
+                <a href="#nota" class="carousel-control-prev" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark"></span>
+                    <span class="sr-only">Önceki</span>
+                </a>
+                <a href="#nota" class="carousel-control-next" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-dark"></span>
+                    <span class="sr-only">Sonraki</span>
+                </a>
+                </div>
+            </FooterTemplate>
+        </asp:Repeater>
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Nota_veritabani %>" SelectCommand="Sp_kullanıcıya_satın_alma_durumuna_göre_Nota_Gösterme" SelectCommandType="StoredProcedure">
+            <SelectParameters>
+                <asp:SessionParameter Name="kID" SessionField="OturumID" Type="Int32" />
+                <asp:QueryStringParameter Name="NotaID" QueryStringField="nota" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+    </div>
+    <div class="col-md-6">
+
+        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSource2" CssClass="table">
+            <EditItemTemplate>
+                SonSayfa:
+                    <asp:TextBox ID="SonSayfaTextBox" runat="server" Text='<%# Bind("SonSayfa") %>' />
+                <br />
+                Alindi:
+                    <asp:TextBox ID="AlindiTextBox" runat="server" Text='<%# Bind("Alindi") %>' />
+                <br />
+                <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Güncelleştir" />
+                &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="İptal" />
+            </EditItemTemplate>
+            <InsertItemTemplate>
+                SonSayfa:
+                    <asp:TextBox ID="SonSayfaTextBox" runat="server" Text='<%# Bind("SonSayfa") %>' />
+                <br />
+                Alindi:
+                    <asp:TextBox ID="AlindiTextBox" runat="server" Text='<%# Bind("Alindi") %>' />
+                <br />
+                <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Ekle" />
+                &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="İptal" />
+            </InsertItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" CssClass="h4 bolder align-self-center" Text="Sayfa Sayısı :"></asp:Label>
+                &nbsp;<asp:Label ID="SonSayfaLabel" runat="server" Text='<%# Bind("SonSayfa") %>' CssClass="h3 text-warning" />
+                &nbsp;&nbsp;
+                    <asp:Label ID="uyari" runat="server"></asp:Label>
+                    <asp:Button ID="Button1" runat="server" Enabled='<%# Eval("Alindi") %>' Text="Satın Al" CssClass="btn btn-success btn-outline-dark float-right py-2 px-4 h4" OnClick="Button1_Click1"/>
+                <br />
+            </ItemTemplate>
+        </asp:FormView>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Nota_veritabani %>" SelectCommand="Sp_kullanının_notayı_satın_alıp_almadıgı_ve_nota_sayfa_sayısı" SelectCommandType="StoredProcedure">
+            <SelectParameters>
+                <asp:SessionParameter Name="kID" SessionField="OturumID" Type="Int32" />
+                <asp:QueryStringParameter Name="NotaID" QueryStringField="nota" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:FormView ID="FormView2" runat="server" CssClass="table" DataKeyNames="NotaID" DataSourceID="SqlDataSource3">
+            <EditItemTemplate>
+                NotaID:
+                <asp:Label ID="NotaIDLabel1" runat="server" Text='<%# Eval("NotaID") %>' />
+                <br />
+                EserAdi:
+                <asp:TextBox ID="EserAdiTextBox" runat="server" Text='<%# Bind("EserAdi") %>' />
+                <br />
+                Makami:
+                <asp:TextBox ID="MakamiTextBox" runat="server" Text='<%# Bind("Makami") %>' />
+                <br />
+                Bestekari:
+                <asp:TextBox ID="BestekariTextBox" runat="server" Text='<%# Bind("Bestekari") %>' />
+                <br />
+                SozYazari:
+                <asp:TextBox ID="SozYazariTextBox" runat="server" Text='<%# Bind("SozYazari") %>' />
+                <br />
+                Formu:
+                <asp:TextBox ID="FormuTextBox" runat="server" Text='<%# Bind("Formu") %>' />
+                <br />
+                Usulu:
+                <asp:TextBox ID="UsuluTextBox" runat="server" Text='<%# Bind("Usulu") %>' />
+                <br />
+                Puan:
+                <asp:TextBox ID="PuanTextBox" runat="server" Text='<%# Bind("Puan") %>' />
+                <br />
+                <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Güncelleştir" />
+                &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="İptal" />
+            </EditItemTemplate>
+            <InsertItemTemplate>
+                EserAdi:
+                <asp:TextBox ID="EserAdiTextBox" runat="server" Text='<%# Bind("EserAdi") %>' />
+                <br />
+                Makami:
+                <asp:TextBox ID="MakamiTextBox" runat="server" Text='<%# Bind("Makami") %>' />
+                <br />
+                Bestekari:
+                <asp:TextBox ID="BestekariTextBox" runat="server" Text='<%# Bind("Bestekari") %>' />
+                <br />
+                SozYazari:
+                <asp:TextBox ID="SozYazariTextBox" runat="server" Text='<%# Bind("SozYazari") %>' />
+                <br />
+                Formu:
+                <asp:TextBox ID="FormuTextBox" runat="server" Text='<%# Bind("Formu") %>' />
+                <br />
+                Usulu:
+                <asp:TextBox ID="UsuluTextBox" runat="server" Text='<%# Bind("Usulu") %>' />
+                <br />
+                Puan:
+                <asp:TextBox ID="PuanTextBox" runat="server" Text='<%# Bind("Puan") %>' />
+                <br />
+                <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Ekle" />
+                &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="İptal" />
+            </InsertItemTemplate>
+            <ItemTemplate>
+                <table class="w-100 table table-bordered">
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label2" runat="server" CssClass="table-item" Text="Puan : "></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="PuanLabel" runat="server" CssClass="h3 text-warning" Text='<%# Bind("Puan") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style1">
+                            <asp:Label ID="Label3" runat="server" CssClass="table-item" Text="Eser Adı :"></asp:Label>
+                        </td>
+                        <td class="auto-style1">
+                            <asp:Label ID="EserAdiLabel" runat="server" Text='<%# Bind("EserAdi") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label4" runat="server" CssClass="table-item" Text="Makamı : "></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="MakamiLabel" runat="server" Text='<%# Bind("Makami") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label5" runat="server" CssClass="table-item" Text="Bestekarı :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="BestekariLabel" runat="server" Text='<%# Bind("Bestekari") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label6" runat="server" CssClass="table-item" Text="Söz Yazarı :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="SozYazariLabel" runat="server" Text='<%# Bind("SozYazari") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label8" runat="server" CssClass="table-item" Text="Formu :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="FormuLabel" runat="server" Text='<%# Bind("Formu") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label7" runat="server" CssClass="table-item" Text="Usulü :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="UsuluLabel" runat="server" Text='<%# Bind("Usulu") %>' />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+
+            </ItemTemplate>
+        </asp:FormView>
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Nota_veritabani %>" SelectCommand="SELECT * FROM [Tbl_Notalar] WHERE ([NotaID] = @NotaID)">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="NotaID" QueryStringField="nota" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+    </div>
+    <script src="../js/bootstrap.js"></script>
+</asp:Content>
+

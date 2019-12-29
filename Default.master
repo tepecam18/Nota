@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="Uye_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Nota</title>
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid bg-success">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-light">
+                        <a href="Nota.aspx" class="text-light">
+                            <h1 class="font-weight-bolder">Nota</h1>
+                        </a>
+                    </div>
+                    <div class="col-md-6 align-self-end text-right">
+                        <div class="btn-group text-right">
+                            <a href="Nota.aspx" class="btn text-white pt-0 btn-outline-dark">Ana Sayfa</a>
+                            <a href="Uye/AnaSayfa.aspx" class="btn text-white pt-0 btn-outline-dark">Giriş Yap</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row py-3">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="container-fluid bg-success text-center">
+            <small>TPCM 2019 © Tüm Hakları Saklıdır.</small>
+        </div>
+    </form>
+</body>
+</html>
